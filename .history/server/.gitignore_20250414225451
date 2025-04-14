@@ -1,0 +1,44 @@
+# Node.js dependencies
+node_modules/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Directory for database files (if applicable)
+db/
+
+# npm debug files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# VS Code settings
+.vscode/
+
+# Mac system files
+.DS_Store
+
+# IDE settings (IntelliJ, WebStorm, etc.)
+.idea/
+
+# Coverage directory used by testing tools like Jest or Mocha
+coverage/
+
+# Build outputs (if applicable)
+dist/
+build/
+
+# Optional: If you're using Docker, ignore Docker-related files
+docker-compose.yml
+Dockerfile
+
+# Optional: If you have backups or temporary files
+*.bak
+*.swp
