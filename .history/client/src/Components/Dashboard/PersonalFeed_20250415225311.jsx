@@ -26,9 +26,6 @@ const PersonalFeed = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newFeed, setNewFeed] = useState({ title: "", date: "", text: "" });
 
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-    const [editFeedData, setEditFeedData] = useState(null);
-
     const toggleAccordion = (id) => {
         setActiveId((prevId) => (prevId === id ? null : id));
     };
@@ -38,31 +35,11 @@ const PersonalFeed = () => {
         setNewFeed({ ...newFeed, [name]: value });
     };
 
-    const handleEditInputChange = (e) => {
-        const { name, value } = e.target;
-        setEditFeedData({ ...editFeedData, [name]: value });
-    };
-
     const addFeed = () => {
         const newId = feeds.length ? feeds[0].id + 1 : 1;
         setFeeds([{ id: newId, ...newFeed }, ...feeds]);
         setNewFeed({ title: "", date: "", text: "" });
         setIsModalOpen(false);
-    };
-
-    const deleteFeed = (id) => {
-        setFeeds(feeds.filter(feed => feed.id !== id));
-    };
-
-    const openEditModal = (feed) => {
-        setEditFeedData(feed);
-        setIsEditModalOpen(true);
-    };
-
-    const updateFeed = () => {
-        setFeeds(feeds.map(feed => (feed.id === editFeedData.id ? editFeedData : feed)));
-        setIsEditModalOpen(false);
-        setEditFeedData(null);
     };
 
     return (
@@ -100,21 +77,7 @@ const PersonalFeed = () => {
                             {/* Accordion Content */}
                             {activeId === feed.id && (
                                 <div className="px-6 py-4 text-gray-700 bg-white rounded-b-lg">
-                                    <p className="mb-4">{feed.text}</p>
-                                    <div className="flex justify-end gap-3">
-                                        <button
-                                            onClick={() => openEditModal(feed)}
-                                            className="text-sm text-indigo-600 hover:text-indigo-800"
-                                        >
-                                            ✏️ Edit
-                                        </button>
-                                        <button
-                                            onClick={() => deleteFeed(feed.id)}
-                                            className="text-sm text-red-500 hover:text-red-700"
-                                        >
-                                            🗑 Delete
-                                        </button>
-                                    </div>
+                                    <p>{feed.text}</p>
                                 </div>
                             )}
                         </div>
@@ -122,9 +85,9 @@ const PersonalFeed = () => {
                 </div>
             </div>
 
-            {/* Add Feed Modal */}
+            {/* Modal */}
             {isModalOpen && (
-                <div className="fixed inset-0 bg-white/30 backdrop-blur-sm flex justify-center items-center z-50">
+                <div className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm flex justify-center items-center z-50">
                     <div className="bg-white rounded-lg p-6 shadow-lg w-full max-w-md">
                         <h2 className="text-xl font-bold mb-4 text-indigo-700">Add New Feed</h2>
 
@@ -164,54 +127,6 @@ const PersonalFeed = () => {
                                 className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg"
                             >
                                 Add Feed
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
-
-            {/* Edit Feed Modal */}
-            {isEditModalOpen && editFeedData && (
-                <div className="fixed inset-0 bg-white/30 backdrop-blur-sm flex justify-center items-center z-50">
-                    <div className="bg-white rounded-lg p-6 shadow-lg w-full max-w-md">
-                        <h2 className="text-xl font-bold mb-4 text-indigo-700">Edit Feed</h2>
-
-                        <input
-                            type="text"
-                            name="title"
-                            placeholder="Title"
-                            value={editFeedData.title}
-                            onChange={handleEditInputChange}
-                            className="w-full mb-3 px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                        />
-                        <input
-                            type="date"
-                            name="date"
-                            value={editFeedData.date}
-                            onChange={handleEditInputChange}
-                            className="w-full mb-3 px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                        />
-                        <textarea
-                            name="text"
-                            placeholder="What's on your mind?"
-                            value={editFeedData.text}
-                            onChange={handleEditInputChange}
-                            rows={4}
-                            className="w-full mb-4 px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-indigo-400"
-                        />
-
-                        <div className="flex justify-end gap-2">
-                            <button
-                                onClick={() => setIsEditModalOpen(false)}
-                                className="px-4 py-2 text-gray-600 hover:text-gray-800"
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                onClick={updateFeed}
-                                className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg"
-                            >
-                                Update Feed
                             </button>
                         </div>
                     </div>
