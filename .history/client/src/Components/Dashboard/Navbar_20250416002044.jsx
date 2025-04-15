@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaMoon, FaSun, FaBars, FaTimes } from "react-icons/fa";
-import { useTheme } from "./ThemeContext.jsx"; // Import the custom hook
+import { useTheme } from "../Dashboard/"; // Import the custom hook
 
 const Navbar = () => {
   const { darkMode, setDarkMode } = useTheme();  // Use theme context for dark mode
@@ -47,7 +47,7 @@ const Navbar = () => {
           <Link to="/" className="hover:text-purple-600 dark:hover:text-purple-400">Dashboard</Link>
           <Link to="/projects" className="hover:text-purple-600 dark:hover:text-purple-400">Projects</Link>
           <Link to="/calendar" className="hover:text-purple-600 dark:hover:text-purple-400">Calendar</Link>
-
+          <Link to="/insights" className="hover:text-purple-600 dark:hover:text-purple-400">Insights</Link>
           <Link to="/personal" className="hover:text-purple-600 dark:hover:text-purple-400">Personal Feed</Link>
           <Link to="/settings" className="hover:text-purple-600 dark:hover:text-purple-400">Settings</Link>
 
@@ -67,7 +67,7 @@ const Navbar = () => {
           <Link to="/" onClick={toggleMenu} className="block hover:text-purple-600 dark:hover:text-purple-400">Dashboard</Link>
           <Link to="/projects" onClick={toggleMenu} className="block hover:text-purple-600 dark:hover:text-purple-400">Projects</Link>
           <Link to="/calendar" onClick={toggleMenu} className="block hover:text-purple-600 dark:hover:text-purple-400">Calendar</Link>
-
+          <Link to="/insights" onClick={toggleMenu} className="block hover:text-purple-600 dark:hover:text-purple-400">Insights</Link>
           <Link to="/personal" onClick={toggleMenu} className="block hover:text-purple-600 dark:hover:text-purple-400">Personal Feed</Link>
           <Link to="/settings" onClick={toggleMenu} className="block hover:text-purple-600 dark:hover:text-purple-400">Settings</Link>
 
