@@ -17,13 +17,6 @@ const Dashboard = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchDate, setSearchDate] = useState("");
 
-    const keyInsights = [
-        { label: "Total Projects", value: 120 },
-        { label: "Active Projects", value: 85 },
-        { label: "Completed Projects", value: 30 },
-        { label: "Overdue Tasks", value: 5 },
-    ];
-
     const projectStatusData = [
         { name: "Total Projects", value: 120 },
         { name: "Running", value: 85 },
@@ -49,16 +42,6 @@ const Dashboard = () => {
         <div className="min-h-screen w-full bg-gray-100 flex flex-col">
             <main className="flex-grow p-4 sm:p-6">
                 <h1 className="text-3xl font-bold text-gray-800 mb-6">MyWorkLogger</h1>
-
-                {/* Stats Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-                    {keyInsights.map((insight, index) => (
-                        <div key={index} className="bg-white shadow rounded-lg p-4">
-                            <p className="text-sm text-gray-500">{insight.label}</p>
-                            <p className="text-2xl font-bold text-blue-600">{insight.value}</p>
-                        </div>
-                    ))}
-                </div>
 
                 {/* Search Section */}
                 <div className="bg-white shadow rounded-lg p-6 mb-6">

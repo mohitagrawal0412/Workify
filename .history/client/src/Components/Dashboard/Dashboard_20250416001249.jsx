@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Calendar from "react-calendar";
+import "../../index.css"
 import {
     PieChart,
     Pie,
@@ -16,6 +18,7 @@ import {
 const Dashboard = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchDate, setSearchDate] = useState("");
+    const [calendarDate, setCalendarDate] = useState(new Date());
 
     const keyInsights = [
         { label: "Total Projects", value: 120 },
@@ -94,8 +97,8 @@ const Dashboard = () => {
                     </form>
                 </div>
 
-                {/* Charts Section */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                {/* Charts + Calendar */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                     {/* Pie Chart for Project Status */}
                     <div className="bg-white shadow rounded-lg p-4">
                         <h3 className="text-lg font-semibold text-gray-700 mb-4">Project Status Overview</h3>
@@ -133,6 +136,35 @@ const Dashboard = () => {
                             </BarChart>
                         </ResponsiveContainer>
                     </div>
+
+                    {/* Custom Tailwind Calendar */}
+                    <div className="bg-white shadow rounded-lg p-4">
+                        <h3 className="text-lg font-semibold text-gray-700 mb-4">📅 Calendar</h3>
+                        <div className="flex flex-col items-center">
+                            <Calendar
+                                onChange={setCalendarDate}
+                                value={calendarDate}
+                                tileClassName={({ date, view }) => {
+                                    const isToday = new Date().toDateString() === date.toDateString();
+                                    const isSelected = calendarDate?.toDateString() === date.toDateString();
+
+                                    return `
+          text-sm 
+          py-2 px-3 
+          transition-all duration-200
+          ${isToday ? 'bg-yellow-200 text-gray-900 font-semibold' : ''}
+          ${isSelected ? 'bg-indigo-600 text-white font-bold' : ''}
+          hover:bg-indigo-100 hover:font-medium
+          rounded
+        `;
+                                }}
+                                className="border-0 w-full [&_button]:text-gray-800 [&_button:hover]:bg-gray-100 [&_button]:rounded"
+                                next2Label={null}
+                                prev2Label={null}
+                            />
+                        </div>
+                    </div>
+
                 </div>
             </main>
         </div>

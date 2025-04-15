@@ -8,7 +8,6 @@ import EntryDetails from './Components/Dashboard/EntryDetails'; // Add this impo
 import SubEntryDetails from './Components/Dashboard/SubEntryDetails';
 import PersonalFeed from './Components/Dashboard/PersonalFeed.jsx';
 import PrivacyFeed from './Components/Dashboard/PrivacyFeed.jsx';
-import CalendarView from './Components/Dashboard/CalenderView.jsx';
 
 
 function App() {
@@ -39,8 +38,8 @@ function App() {
         {/* Route for privcy feed */}
         <Route path="/privacy" element={<PrivacyFeed />} />
 
-        {/* Route for calender */}
-        <Route path="/calendar" element={<CalendarView />} />
+ {/* Route for calender */}
+ <Route path="/privacy" element={<PrivacyFeed />} />
 
 
       </Routes>

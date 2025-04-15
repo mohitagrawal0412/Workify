@@ -40,7 +40,7 @@ function App() {
         <Route path="/privacy" element={<PrivacyFeed />} />
 
         {/* Route for calender */}
-        <Route path="/calendar" element={<CalendarView />} />
+        <Route path="/c" element={<CalendarView />} />
 
 
       </Routes>

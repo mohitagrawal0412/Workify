@@ -1,21 +1,28 @@
 import React, { useState } from "react";
-import {
-    PieChart,
-    Pie,
-    Cell,
-    ResponsiveContainer,
-    BarChart,
-    Bar,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    Legend,
-} from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer, DonutChart, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 
 const Dashboard = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [searchDate, setSearchDate] = useState("");
+
+    const projectData = [
+        { name: "Design", value: 40 },
+        { name: "Development", value: 30 },
+        { name: "Testing", value: 20 },
+        { name: "Deployment", value: 10 },
+    ];
+
+    const taskCompletionData = [
+        { name: "Completed", value: 75 },
+        { name: "In Progress", value: 15 },
+        { name: "Pending", value: 10 },
+    ];
+
+    const projectCompletionData = [
+        { name: "Project A", completion: 80 },
+        { name: "Project B", completion: 60 },
+        { name: "Project C", completion: 90 },
+    ];
 
     const keyInsights = [
         { label: "Total Projects", value: 120 },
@@ -23,22 +30,6 @@ const Dashboard = () => {
         { label: "Completed Projects", value: 30 },
         { label: "Overdue Tasks", value: 5 },
     ];
-
-    const projectStatusData = [
-        { name: "Total Projects", value: 120 },
-        { name: "Running", value: 85 },
-        { name: "Completed", value: 30 },
-        { name: "Under Review", value: 5 },
-    ];
-
-    const weeklyEntriesData = [
-        { week: "Week 1", entries: 25 },
-        { week: "Week 2", entries: 30 },
-        { week: "Week 3", entries: 45 },
-        { week: "Week 4", entries: 20 },
-    ];
-
-    const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -94,42 +85,47 @@ const Dashboard = () => {
                     </form>
                 </div>
 
-                {/* Charts Section */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    {/* Pie Chart for Project Status */}
+                {/* Visualizations */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+                    {/* Pie Chart */}
                     <div className="bg-white shadow rounded-lg p-4">
-                        <h3 className="text-lg font-semibold text-gray-700 mb-4">Project Status Overview</h3>
-                        <ResponsiveContainer width="100%" height={250}>
+                        <h3 className="text-lg font-semibold text-gray-700 mb-4">Project Distribution</h3>
+                        <ResponsiveContainer width="100%" height={200}>
                             <PieChart>
-                                <Pie
-                                    data={projectStatusData}
-                                    dataKey="value"
-                                    nameKey="name"
-                                    cx="50%"
-                                    cy="50%"
-                                    outerRadius={80}
-                                    label
-                                >
-                                    {projectStatusData.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                <Pie data={projectData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={60} fill="#8884d8" label>
+                                    {projectData.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={['#0088FE', '#00C49F', '#FFBB28', '#FF8042'][index % 4]} />
                                     ))}
                                 </Pie>
-                                <Tooltip />
                             </PieChart>
                         </ResponsiveContainer>
                     </div>
 
-                    {/* Bar Chart for Weekly Entries */}
+                    {/* Donut Chart */}
                     <div className="bg-white shadow rounded-lg p-4">
-                        <h3 className="text-lg font-semibold text-gray-700 mb-4">Weekly Entries</h3>
-                        <ResponsiveContainer width="100%" height={250}>
-                            <BarChart data={weeklyEntriesData}>
+                        <h3 className="text-lg font-semibold text-gray-700 mb-4">Task Completion</h3>
+                        <ResponsiveContainer width="100%" height={200}>
+                            <DonutChart data={taskCompletionData}>
+                                <Pie dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#8884d8" label>
+                                    {taskCompletionData.map((entry, index) => (
+                                        <Cell key={`cell-${index}`} fill={['#0088FE', '#00C49F', '#FFBB28'][index % 3]} />
+                                    ))}
+                                </Pie>
+                            </DonutChart>
+                        </ResponsiveContainer>
+                    </div>
+
+                    {/* Bar Chart */}
+                    <div className="bg-white shadow rounded-lg p-4">
+                        <h3 className="text-lg font-semibold text-gray-700 mb-4">Project Completion</h3>
+                        <ResponsiveContainer width="100%" height={200}>
+                            <BarChart data={projectCompletionData}>
                                 <CartesianGrid strokeDasharray="3 3" />
-                                <XAxis dataKey="week" />
+                                <XAxis dataKey="name" />
                                 <YAxis />
                                 <Tooltip />
                                 <Legend />
-                                <Bar dataKey="entries" fill="#8884d8" />
+                                <Bar dataKey="completion" fill="#8884d8" />
                             </BarChart>
                         </ResponsiveContainer>
                     </div>
