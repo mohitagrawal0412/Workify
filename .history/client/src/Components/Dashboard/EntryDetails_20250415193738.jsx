@@ -45,14 +45,6 @@ const EntryDetails = () => {
 
     const [editedEntry, setEditedEntry] = useState({ ...entry });
 
-    // ✅ This is the missing part in your code
-    const [newSubentry, setNewSubentry] = useState({
-        workTitle: "",
-        description: "",
-        tags: [],
-        spentTime: 0,
-    });
-
     const handleEntryClick = (subentry) => {
         navigate("/subEntryDetails", { state: { subentry } });
     };
@@ -73,9 +65,8 @@ const EntryDetails = () => {
 
     const handleDeleteEntry = () => {
         console.log("Entry deleted:", entry.title);
-        navigate("/projects"); // Replace with your actual route
+        navigate("/projects"); // Or wherever you want to redirect
     };
-
     const handleAddSubentry = () => {
         const updatedEntry = { ...entry };
         updatedEntry.subentries.push(newSubentry);
@@ -122,7 +113,7 @@ const EntryDetails = () => {
 
                     <div className="mt-6 flex flex-col gap-3">
                         <button
-                            onClick={() => setAddModalOpen(true)}
+                            onClick={() =>  onClick={() => setAddModalOpen(true)}(true)}
                             className="w-full flex items-center justify-center gap-2 bg-indigo-600 text-white rounded-lg p-2 shadow-lg hover:bg-indigo-700 transition duration-300"
                         >
                             <FaPlus />

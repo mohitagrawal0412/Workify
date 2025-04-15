@@ -44,8 +44,6 @@ const EntryDetails = () => {
     });
 
     const [editedEntry, setEditedEntry] = useState({ ...entry });
-
-    // ✅ This is the missing part in your code
     const [newSubentry, setNewSubentry] = useState({
         workTitle: "",
         description: "",
@@ -73,7 +71,7 @@ const EntryDetails = () => {
 
     const handleDeleteEntry = () => {
         console.log("Entry deleted:", entry.title);
-        navigate("/projects"); // Replace with your actual route
+        navigate("/projects"); // Or wherever you want to redirect
     };
 
     const handleAddSubentry = () => {
@@ -217,75 +215,6 @@ const EntryDetails = () => {
                 </div>
             </div>
 
-            {/* Edit Entry Modal */}
-            {isEditModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md bg-black/30">
-                    <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md max-h-[90vh] overflow-y-auto">
-                        <h2 className="text-xl font-semibold text-indigo-700 mb-4">Edit Entry</h2>
-                        <form className="space-y-4">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700">Title</label>
-                                <input
-                                    type="text"
-                                    value={editedEntry.title}
-                                    onChange={(e) => setEditedEntry({ ...editedEntry, title: e.target.value })}
-                                    className="w-full p-2 border border-gray-300 rounded-lg"
-                                />
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700">Description</label>
-                                <textarea
-                                    value={editedEntry.description}
-                                    onChange={(e) => setEditedEntry({ ...editedEntry, description: e.target.value })}
-                                    className="w-full p-2 border border-gray-300 rounded-lg"
-                                />
-                            </div>
-                            <div className="flex justify-end gap-3 pt-2">
-                                <button
-                                    type="button"
-                                    onClick={() => setEditModalOpen(false)}
-                                    className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700"
-                                >
-                                    Cancel
-                                </button>
-                                <button
-                                    type="button"
-                                    onClick={handleSaveEdit}
-                                    className="bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700"
-                                >
-                                    Save
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            )}
-
-            {/* Delete Entry Modal */}
-            {isDeleteModalOpen && (
-                <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md bg-black/30">
-                    <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-sm">
-                        <h2 className="text-xl font-bold text-red-600 mb-3">Delete Entry</h2>
-                        <p className="text-gray-700 mb-6">
-                            Are you sure you want to delete <strong>{entry.title}</strong>? This action cannot be undone.
-                        </p>
-                        <div className="flex justify-end gap-4">
-                            <button
-                                onClick={() => setDeleteModalOpen(false)}
-                                className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700"
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                onClick={handleDeleteEntry}
-                                className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700"
-                            >
-                                Delete
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
             {/* Add Subentry Modal */}
             {isAddModalOpen && (
                 <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md bg-black/30">
@@ -355,8 +284,6 @@ const EntryDetails = () => {
                     </div>
                 </div>
             )}
-
-
         </div>
     );
 };

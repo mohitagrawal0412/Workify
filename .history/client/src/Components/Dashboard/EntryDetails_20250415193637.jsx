@@ -45,14 +45,6 @@ const EntryDetails = () => {
 
     const [editedEntry, setEditedEntry] = useState({ ...entry });
 
-    // ✅ This is the missing part in your code
-    const [newSubentry, setNewSubentry] = useState({
-        workTitle: "",
-        description: "",
-        tags: [],
-        spentTime: 0,
-    });
-
     const handleEntryClick = (subentry) => {
         navigate("/subEntryDetails", { state: { subentry } });
     };
@@ -73,20 +65,7 @@ const EntryDetails = () => {
 
     const handleDeleteEntry = () => {
         console.log("Entry deleted:", entry.title);
-        navigate("/projects"); // Replace with your actual route
-    };
-
-    const handleAddSubentry = () => {
-        const updatedEntry = { ...entry };
-        updatedEntry.subentries.push(newSubentry);
-        setEntry(updatedEntry);
-        setAddModalOpen(false);
-        setNewSubentry({
-            workTitle: "",
-            description: "",
-            tags: [],
-            spentTime: 0,
-        });
+        navigate("/projects"); // Or wherever you want to redirect
     };
 
     return (

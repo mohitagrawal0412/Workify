@@ -232,7 +232,7 @@ const SubEntryDetails = () => {
             {/* Edit Modal */}
             {showEditModal && (
                 <div className="fixed inset-0 flex items-center justify-center z-50 backdrop-blur-md bg-black/30">
-                    <div className="bg-white/90 rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-8">
+                    <div className="bg-white/90 p-8 rounded-xl shadow-xl w-full max-w-2xl">
                         <h2 className="text-2xl font-semibold text-indigo-700 mb-6">Edit Subentry</h2>
                         <form onSubmit={handleSaveEdit} className="space-y-6">
 
@@ -307,7 +307,6 @@ const SubEntryDetails = () => {
                                 />
                             </div>
 
-                            {/* Footer Buttons */}
                             <div className="flex justify-between pt-4">
                                 <button
                                     type="button"
@@ -327,7 +326,6 @@ const SubEntryDetails = () => {
                     </div>
                 </div>
             )}
-
 
             {/* Delete Modal */}
             {showDeleteModal && (

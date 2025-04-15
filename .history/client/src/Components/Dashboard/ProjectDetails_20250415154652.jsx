@@ -5,6 +5,8 @@ import { FaCheckCircle } from "react-icons/fa";
 const ProjectDetails = () => {
     const navigate = useNavigate();
     const [showAddTaskModal, setShowAddTaskModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [taskToEdit, setTaskToEdit] = useState(null);
     const [taskToDelete, setTaskToDelete] = useState(null);
     const [newTask, setNewTask] = useState({
@@ -12,32 +14,6 @@ const ProjectDetails = () => {
         description: "",
         date: "",
     });
-    const [entries, setEntries] = useState([
-        {
-            _id: "entry1",
-            title: "Initial Planning",
-            description: "Planning the initial project tasks and setting goals.",
-            date: "2025-04-01",
-        },
-        {
-            _id: "entry2",
-            title: "Research Phase",
-            description: "Researching the tools and technologies for the project.",
-            date: "2025-04-10",
-        },
-        {
-            _id: "entry3",
-            title: "Design Phase",
-            description: "Designing the initial prototypes and user flow.",
-            date: "2025-04-20",
-        },
-        {
-            _id: "entry4",
-            title: "Implementation Phase",
-            description: "Starting the development of core features.",
-            date: "2025-05-01",
-        },
-    ]);
 
     const project = {
         projectName: "Awesome Project",
@@ -45,14 +21,40 @@ const ProjectDetails = () => {
         deadline: "2025-12-31",
         learning: "Learning about project management and task delegation.",
         status: "running",
+        entries: [
+            {
+                _id: "entry1",
+                title: "Initial Planning",
+                description: "Planning the initial project tasks and setting goals.",
+                date: "2025-04-01",
+            },
+            {
+                _id: "entry2",
+                title: "Research Phase",
+                description: "Researching the tools and technologies for the project.",
+                date: "2025-04-10",
+            },
+            {
+                _id: "entry3",
+                title: "Design Phase",
+                description: "Designing the initial prototypes and user flow.",
+                date: "2025-04-20",
+            },
+            {
+                _id: "entry4",
+                title: "Implementation Phase",
+                description: "Starting the development of core features.",
+                date: "2025-05-01",
+            },
+        ],
     };
 
-    const handleEntryClick = (entry) => {
-        navigate("/entryDetails", { state: { entry } }); // Navigate to Entry Details page
+    const handleEntryClick = () => {
+        navigate("/entryDetails");
     };
 
     const handleViewFullProject = () => {
-        navigate("/projects");
+        navigate("/projectOverview");
     };
 
     const handleAddNewTask = () => {
@@ -63,23 +65,31 @@ const ProjectDetails = () => {
         navigate("/teamMembers");
     };
 
-    // Remove modal logic for Edit and Delete, and directly navigate to entryDetails page
     const handleEditTask = (task) => {
-        navigate("/entryDetails", { state: { entry: task } });
+        setTaskToEdit(task);
+        setShowEditModal(true);
     };
 
     const handleDeleteTask = (task) => {
         setTaskToDelete(task);
-        const updatedEntries = entries.filter((entry) => entry._id !== task._id);
-        setEntries(updatedEntries); // Remove task from entries array immediately
+        setShowDeleteModal(true);
     };
 
     const handleAddTaskSubmit = (e) => {
         e.preventDefault();
-        const newTaskEntry = { ...newTask, _id: Date.now().toString() };
-        setEntries([...entries, newTaskEntry]); // Add new task to the entries array
+        // Logic to add the new task
         setShowAddTaskModal(false);
-        setNewTask({ title: "", description: "", date: "" }); // Reset the form
+    };
+
+    const handleEditTaskSubmit = (e) => {
+        e.preventDefault();
+        // Logic to update the task
+        setShowEditModal(false);
+    };
+
+    const handleDeleteTaskConfirm = () => {
+        // Logic to delete the task
+        setShowDeleteModal(false);
     };
 
     return (
@@ -148,7 +158,7 @@ const ProjectDetails = () => {
                     <div className="absolute left-1/2 transform -translate-x-1/2 h-full border-l-4 border-blue-400"></div>
 
                     <div className="space-y-16">
-                        {entries.map((entry, index) => {
+                        {project.entries.map((entry, index) => {
                             const isLeft = index % 2 === 0;
                             return (
                                 <div
@@ -163,10 +173,9 @@ const ProjectDetails = () => {
                                     </div>
 
                                     {/* Entry Card */}
-                                    <div
-                                        onClick={() => handleEntryClick(entry)}
-                                        className={`w-5/12 p-5 bg-white/70 backdrop-blur-md border border-gray-200 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer ${isLeft ? "mr-auto" : "ml-auto"}`}
-                                    >
+                                    <div 
+                                    
+                                    className={`w-5/12 p-5 bg-white/70 backdrop-blur-md border border-gray-200 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer ${isLeft ? "mr-auto" : "ml-auto"}`}>
                                         <div className="flex justify-between items-center">
                                             <h3 className="text-lg font-semibold text-indigo-600">{entry.title}</h3>
                                             <span className="text-sm text-gray-400">
@@ -176,13 +185,13 @@ const ProjectDetails = () => {
                                         <p className="mt-2 text-gray-600">{entry.description}</p>
                                         <div className="mt-2 flex justify-end gap-4">
                                             <button
-                                                onClick={() => handleEditTask(entry)} // Navigate to entryDetails page
+                                                onClick={() => handleEditTask(entry)}
                                                 className="text-indigo-600 hover:text-indigo-800"
                                             >
                                                 Edit
                                             </button>
                                             <button
-                                                onClick={() => handleDeleteTask(entry)} // Immediately delete the task
+                                                onClick={() => handleDeleteTask(entry)}
                                                 className="text-red-600 hover:text-red-800"
                                             >
                                                 Delete
@@ -247,6 +256,86 @@ const ProjectDetails = () => {
                                 </button>
                             </div>
                         </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Edit Task Modal */}
+            {showEditModal && taskToEdit && (
+                <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center">
+                    <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-lg relative">
+                        <h2 className="text-2xl font-semibold mb-4">Edit Task</h2>
+                        <form onSubmit={handleEditTaskSubmit} className="space-y-4">
+                            <div>
+                                <label className="block font-medium mb-1">Task Title</label>
+                                <input
+                                    type="text"
+                                    value={taskToEdit.title}
+                                    onChange={(e) => setTaskToEdit({ ...taskToEdit, title: e.target.value })}
+                                    className="w-full border rounded px-3 py-2"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block font-medium mb-1">Description</label>
+                                <textarea
+                                    value={taskToEdit.description}
+                                    onChange={(e) => setTaskToEdit({ ...taskToEdit, description: e.target.value })}
+                                    className="w-full border rounded px-3 py-2"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block font-medium mb-1">Date</label>
+                                <input
+                                    type="date"
+                                    value={taskToEdit.date}
+                                    onChange={(e) => setTaskToEdit({ ...taskToEdit, date: e.target.value })}
+                                    className="w-full border rounded px-3 py-2"
+                                />
+                            </div>
+
+                            <div className="flex justify-end gap-4 mt-4">
+                                <button
+                                    type="button"
+                                    onClick={() => setShowEditModal(false)}
+                                    className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+                                >
+                                    Save Changes
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Delete Task Modal */}
+            {showDeleteModal && taskToDelete && (
+                <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center">
+                    <div className="bg-white rounded-xl shadow-lg p-6 w-full max-w-lg relative">
+                        <h2 className="text-2xl font-semibold mb-4">Delete Task</h2>
+                        <p>Are you sure you want to delete the task "{taskToDelete.title}"?</p>
+                        <div className="flex justify-end gap-4 mt-4">
+                            <button
+                                type="button"
+                                onClick={() => setShowDeleteModal(false)}
+                                className="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={handleDeleteTaskConfirm}
+                                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                            >
+                                Delete
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}

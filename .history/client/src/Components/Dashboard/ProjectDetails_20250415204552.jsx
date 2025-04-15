@@ -52,7 +52,7 @@ const ProjectDetails = () => {
     };
 
     const handleViewFullProject = () => {
-        navigate("/projects");
+        navigate("/project");
     };
 
     const handleAddNewTask = () => {
