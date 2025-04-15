@@ -7,7 +7,6 @@ import ProjectDetails from './Components/Dashboard/ProjectDetails'; // Add this 
 import EntryDetails from './Components/Dashboard/EntryDetails'; // Add this import for the entry details page
 import SubEntryDetails from './Components/Dashboard/SubEntryDetails';
 import PersonalFeed from './Components/Dashboard/PersonalFeed.jsx';
-import PrivacyFeed from './Components/Dashboard/PrivacyFeed.jsx';
 
 
 function App() {
@@ -34,9 +33,8 @@ function App() {
 
         {/* Route for perosnla feed */}
         <Route path="/personal" element={<PersonalFeed />} />
-
-        {/* Route for privcy feed */}
-        <Route path="/privacy" element={<PrivacyFeed />} />
+           {/* Route for perosnla feed */}
+           <Route path="/personal" element={<PersonalFeed />} />
 
 
 

@@ -21,7 +21,7 @@ const Navbar = () => {
 
   const handleLogoClick = () => {
     setClickCount((prev) => {
-      if (prev === 2) {
+      if (prev === 1) {
         navigate("/privacy");
         return 0;
       }

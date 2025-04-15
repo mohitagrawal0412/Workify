@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaMoon, FaSun, FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [clickCount, setClickCount] = useState(0);
-  const navigate = useNavigate();
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -19,27 +17,13 @@ const Navbar = () => {
     }
   }, [darkMode]);
 
-  const handleLogoClick = () => {
-    setClickCount((prev) => {
-      if (prev === 2) {
-        navigate("/privacy");
-        return 0;
-      }
-      setTimeout(() => setClickCount(0), 400);
-      return prev + 1;
-    });
-  };
-
   return (
     <nav className="bg-white dark:bg-gray-900 shadow-md px-6 py-4 rounded-b-xl">
       <div className="flex items-center justify-between">
         {/* Logo */}
-        <button
-          onClick={handleLogoClick}
-          className="text-purple-600 dark:text-purple-400 text-2xl font-extrabold tracking-wide transform hover:scale-105 transition-transform focus:outline-none"
-        >
+        <span className="text-purple-600 dark:text-purple-400 text-2xl font-extrabold tracking-wide transform hover:scale-105 transition-transform">
           📘 WorkLogger
-        </button>
+        </span>
 
         {/* Hamburger Button */}
         <button
@@ -55,7 +39,7 @@ const Navbar = () => {
           <Link to="/projects" className="hover:text-purple-600 dark:hover:text-purple-400">Projects</Link>
           <Link to="/calendar" className="hover:text-purple-600 dark:hover:text-purple-400">Calendar</Link>
           <Link to="/insights" className="hover:text-purple-600 dark:hover:text-purple-400">Insights</Link>
-          <Link to="/personal" className="hover:text-purple-600 dark:hover:text-purple-400">Personal Feed</Link>
+          <Link to="/feed" className="hover:text-purple-600 dark:hover:text-purple-400">Personal Feed</Link>
           <Link to="/settings" className="hover:text-purple-600 dark:hover:text-purple-400">Settings</Link>
 
           <button
@@ -71,12 +55,48 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {isMenuOpen && (
         <div className="sm:hidden mt-4 space-y-3 text-center text-gray-700 dark:text-gray-300 text-sm font-medium">
-          <Link to="/" onClick={toggleMenu} className="block hover:text-purple-600 dark:hover:text-purple-400">Dashboard</Link>
-          <Link to="/projects" onClick={toggleMenu} className="block hover:text-purple-600 dark:hover:text-purple-400">Projects</Link>
-          <Link to="/calendar" onClick={toggleMenu} className="block hover:text-purple-600 dark:hover:text-purple-400">Calendar</Link>
-          <Link to="/insights" onClick={toggleMenu} className="block hover:text-purple-600 dark:hover:text-purple-400">Insights</Link>
-          <Link to="/personal" onClick={toggleMenu} className="block hover:text-purple-600 dark:hover:text-purple-400">Personal Feed</Link>
-          <Link to="/settings" onClick={toggleMenu} className="block hover:text-purple-600 dark:hover:text-purple-400">Settings</Link>
+          <Link
+            to="/"
+            onClick={toggleMenu}
+            className="block hover:text-purple-600 dark:hover:text-purple-400"
+          >
+            Dashboard
+          </Link>
+          <Link
+            to="/projects"
+            onClick={toggleMenu}
+            className="block hover:text-purple-600 dark:hover:text-purple-400"
+          >
+            Projects
+          </Link>
+          <Link
+            to="/calendar"
+            onClick={toggleMenu}
+            className="block hover:text-purple-600 dark:hover:text-purple-400"
+          >
+            Calendar
+          </Link>
+          <Link
+            to="/insights"
+            onClick={toggleMenu}
+            className="block hover:text-purple-600 dark:hover:text-purple-400"
+          >
+            Insights
+          </Link>
+          <Link
+            to="/Personal"
+            onClick={toggleMenu}
+            className="block hover:text-purple-600 dark:hover:text-purple-400"
+          >
+            Personal Feed
+          </Link>
+          <Link
+            to="/settings"
+            onClick={toggleMenu}
+            className="block hover:text-purple-600 dark:hover:text-purple-400"
+          >
+            Settings
+          </Link>
 
           <button
             onClick={() => {

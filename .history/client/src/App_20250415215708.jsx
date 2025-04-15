@@ -36,7 +36,7 @@ function App() {
         <Route path="/personal" element={<PersonalFeed />} />
 
         {/* Route for privcy feed */}
-        <Route path="/privacy" element={<PrivacyFeed />} />
+        <Route path="/privacy" element={<PersonalFeed />} />
 
 
 

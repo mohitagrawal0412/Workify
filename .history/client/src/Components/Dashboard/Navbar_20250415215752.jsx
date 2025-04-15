@@ -21,11 +21,11 @@ const Navbar = () => {
 
   const handleLogoClick = () => {
     setClickCount((prev) => {
-      if (prev === 2) {
+      if (prev === 1) {
         navigate("/privacy");
         return 0;
       }
-      setTimeout(() => setClickCount(0), 400);
+      setTimeout(() => setClickCount(0), 600);
       return prev + 1;
     });
   };
