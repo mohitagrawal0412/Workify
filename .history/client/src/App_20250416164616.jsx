@@ -1,14 +1,14 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './Pages/Navbar.jsx'; // Import Navbar component
-import Dashboard from './Pages/Dashboard.jsx';
-import AllProjects from './Pages/AllProjects.jsx'; // Adjust path as needed
-import ProjectDetails from './Pages/ProjectDetails.jsx'; // Add this import for the project details page
-import EntryDetails from './Pages/EntryDetails.jsx'; // Add this import for the entry details page
-import SubEntryDetails from './Pages/SubEntryDetails.jsx';
-import PersonalFeed from './Pages/PersonalFeed.jsx';
-import PrivacyFeed from './Pages/PrivacyFeed.jsx';
-import CalendarView from './Pages/CalenderView.jsx';
+import Navbar from './Components/Pages/Navbar.js'; // Import Navbar component
+import Dashboard from './Components/Pages/Dashboard.jsx';
+import AllProjects from './Components/Pages/AllProjects.jsx'; // Adjust path as needed
+import ProjectDetails from './Components/Pages/ProjectDetails.jsx'; // Add this import for the project details page
+import EntryDetails from './Components/Pages/EntryDetails.jsx'; // Add this import for the entry details page
+import SubEntryDetails from './Components/Pages/SubEntryDetails.jsx';
+import PersonalFeed from './Components/Pages/PersonalFeed.jsx';
+import PrivacyFeed from './Components/Pages/PrivacyFeed.jsx';
+import CalendarView from './Components/Pages/CalenderView.jsx';
 
 
 function App() {
