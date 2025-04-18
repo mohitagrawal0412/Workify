@@ -46,7 +46,7 @@ const ProjectDetails = () => {
 
 
     const handleEntryClick = (entry) => {
-
+        // Dynamically navigate to the correct entry details page using the actual entryId
         const entryId = entry;
         navigate(`/entryDetails/${projectId}/${entryId}`, { state: { entry } });
     };
@@ -78,34 +78,21 @@ const ProjectDetails = () => {
         deleteEntry();
     };
 
-    const handleAddEntrySubmit = async (newEntryData) => {
-        try {
-            // Ensure the date is formatted as expected by the backend
-            const formattedDate = new Date(newEntryData.date).toISOString();
-
-            // Update the newEntryData with the correct field name for the title
-            const updatedEntryData = {
-                ...newEntryData,
-                date: formattedDate,
-                entryTitle: newEntryData.title,  // Change 'title' to 'entryTitle' to match schema
-            };
-
-            console.log("Submitting updated entry:", updatedEntryData);
-
-            const projectId = project._id;
-
-            const response = await axios.post(`http://localhost:5000/api/entries/${projectId}`, updatedEntryData);
-
-            console.log("New Entry Created:", response.data);
-
-            setShowAddEntryModal(false);
-            setEntries((prevEntries) => [...prevEntries, response.data]);
-        } catch (error) {
-            console.error("Error adding new entry:", error.response?.data || error.message);
-        }
+    const handleAddEntrySubmit = (e) => {
+        e.preventDefault();
+        const newEntryObj = { ...newEntry, projectId };
+        const addEntry = async () => {
+            try {
+                const res = await axios.post(`/api/entries`, newEntryObj);
+                setEntries([...entries, res.data]);
+                setShowAddEntryModal(false);
+                setNewEntry({ title: "", description: "", date: "" });
+            } catch (err) {
+                console.error("Error adding entry:", err);
+            }
+        };
+        addEntry();
     };
-
-
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{error}</div>;

@@ -78,33 +78,28 @@ const ProjectDetails = () => {
         deleteEntry();
     };
 
-    const handleAddEntrySubmit = async (newEntryData) => {
-        try {
-            // Ensure the date is formatted as expected by the backend
-            const formattedDate = new Date(newEntryData.date).toISOString();
+    const handleAddNewEntrySubmit = async (newEntryData) => {
+    try {
+        const projectId = selectedProject._id; // Assuming the project ID is saved in `selectedProject`
+        
+        // Send POST request to add the new entry
+        const response = await axios.post(
+            `http://localhost:5000/api/entries/${projectId}`,
+            newEntryData
+        );
 
-            // Update the newEntryData with the correct field name for the title
-            const updatedEntryData = {
-                ...newEntryData,
-                date: formattedDate,
-                entryTitle: newEntryData.title,  // Change 'title' to 'entryTitle' to match schema
-            };
+        console.log("New Entry Created:", response.data);
 
-            console.log("Submitting updated entry:", updatedEntryData);
+        // Close the modal
+        setShowAddEntryModal(false);
 
-            const projectId = project._id;
+        // Optionally, refresh the project or entries list (if you're using context or any global state)
+        await refreshEntries();  // Assuming you have a function to refresh the list
 
-            const response = await axios.post(`http://localhost:5000/api/entries/${projectId}`, updatedEntryData);
-
-            console.log("New Entry Created:", response.data);
-
-            setShowAddEntryModal(false);
-            setEntries((prevEntries) => [...prevEntries, response.data]);
-        } catch (error) {
-            console.error("Error adding new entry:", error.response?.data || error.message);
-        }
-    };
-
+    } catch (error) {
+        console.error("Error adding new entry:", error);
+    }
+};
 
 
     if (loading) return <div>Loading...</div>;

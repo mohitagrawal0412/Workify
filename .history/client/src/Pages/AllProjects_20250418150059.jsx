@@ -9,8 +9,6 @@ import {
     FaTrash,
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-
 
 // Modals
 import AddProjectModal from "../modals/AddProjectModal.jsx";
@@ -56,11 +54,11 @@ const AllProjects = () => {
 
     const handleAddProject = async (e) => {
         e.preventDefault();
-
+    
         try {
             const response = await axios.post("/api/projects", newProject);
             console.log("New project created:", response.data);
-
+    
             setShowAddModal(false);
             setNewProject({
                 projectName: "",
@@ -70,53 +68,26 @@ const AllProjects = () => {
                 learning: "",
                 status: "running",
             });
-
+    
             await refreshProjects(); // Reloads the project list
         } catch (err) {
             console.error("Error creating project:", err);
             alert("Failed to create project. Please try again.");
         }
     };
-
+    
 
     const handleEditProject = async (e) => {
         e.preventDefault();
-        try {
-            // Update the project by sending a PUT request to the backend
-            const response = await axios.put(
-                `http://localhost:5000/api/projects/${selectedProject._id}/updateProject`,
-                selectedProject
-            );
-
-            console.log("Edited Project:", response.data);
-
-            // Close the edit modal
-            setShowEditModal(false);
-
-            // Refresh the projects list after the update
-            await refreshProjects();
-        } catch (error) {
-            console.error("Error updating project:", error);
-        }
+        console.log("Edited Project:", selectedProject);
+        setShowEditModal(false);
+        await refreshProjects();
     };
 
     const handleDeleteProject = async () => {
-        try {
-            // Send DELETE request to backend
-            const response = await axios.delete(
-                `http://localhost:5000/api/projects/${selectedProject._id}/deleteProject`
-            );
-
-            console.log("Deleted Project:", response.data);
-
-            // Close the delete modal
-            setShowDeleteModal(false);
-
-            // Refresh the projects list after deletion
-            await refreshProjects();
-        } catch (error) {
-            console.error("Error deleting project:", error);
-        }
+        console.log("Deleted Project:", selectedProject);
+        setShowDeleteModal(false);
+        await refreshProjects();
     };
 
     return (

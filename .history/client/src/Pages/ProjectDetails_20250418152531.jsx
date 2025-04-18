@@ -83,12 +83,8 @@ const ProjectDetails = () => {
             // Ensure the date is formatted as expected by the backend
             const formattedDate = new Date(newEntryData.date).toISOString();
 
-            // Update the newEntryData with the correct field name for the title
-            const updatedEntryData = {
-                ...newEntryData,
-                date: formattedDate,
-                entryTitle: newEntryData.title,  // Change 'title' to 'entryTitle' to match schema
-            };
+            // Update newEntryData with formatted date if needed
+            const updatedEntryData = { ...newEntryData, date: formattedDate };
 
             console.log("Submitting updated entry:", updatedEntryData);
 
@@ -104,7 +100,6 @@ const ProjectDetails = () => {
             console.error("Error adding new entry:", error.response?.data || error.message);
         }
     };
-
 
 
     if (loading) return <div>Loading...</div>;

@@ -3,7 +3,7 @@ import Project from "../../Models/Project.model.js";
 
 export const createEntryInProject = async (req, res) => {
   try {
-    alert(" commign to controller");
+    alert
     const { projectId } = req.params;
 
     // Create entry with subEntries
